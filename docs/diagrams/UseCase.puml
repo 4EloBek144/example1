@@ -1,13 +1,66 @@
 @startuml
 left to right direction
 skinparam packageStyle rectangle
-actor &quot;Пользователь&quot; as User
-package &quot;Система&quot; {
-    usecase &quot;Вход в систему&quot; as UC_Login
-    usecase &quot;Регистрация&quot; as UC_Register
-    usecase &quot;Сброс пароля&quot; as UC_Reset
+
+actor "Студент" as Student
+actor "Преподаватель" as Teacher
+actor "Администратор" as Adm
+actor "Ректор" as Rec
+
+package "Вход" as Registration{
+    usecase "Вход в систему" as UC_Login
+    usecase "Регистрация" as UC_Register
 }
-User --&gt; UC_Login
-User --&gt; UC_Register
-User --&gt; UC_Reset
+
+Student --> Registration
+Teacher --> Registration
+Adm --> Registration
+Rec --> Registration
+
+package "Расписания" as TimeT {
+    usecase "Просмотр расписания" as TimeT_R
+    usecase "Назначение и редактирование расписаний" as TimeT_W
+}
+
+Student --> TimeT_R
+Teacher --> TimeT_R
+Adm --> TimeT
+Rec --> TimeT
+
+package "Группы" as Groups{
+    usecase "Просмотр групп и их состава" as Groups_R
+    usecase "Изменение и создание групп" as Groups_W
+}
+
+Student --> Groups_R
+Teacher --> Groups_R
+Adm --> Groups
+Rec --> Groups
+
+package "Посещаемость" as Att{
+    usecase "Просмотр" as Att_R
+    usecase "Редактирование" as Att_W
+}
+
+
+Student --> Att_R
+Teacher --> Att
+Adm --> Att_R
+Rec --> Att_R
+
+package "Профили" as Prof{
+    usecase "Просмотр" as Prof_R
+    usecase "Редактирование профилей пользователей ниже по должности" as Prof_W
+}
+
+Student --> Prof_R
+Teacher --> Prof_R
+Adm --> Prof
+Rec --> Prof
+
+TimeT --> (Registration) #line.dashed;text:black : <include>
+Groups --> (Registration) #line.dashed;text:black : <include>
+Att --> (Registration) #line.dashed;text:black : <include>
+Prof --> (Registration) #line.dashed;text:black : <include>
+
 @enduml
