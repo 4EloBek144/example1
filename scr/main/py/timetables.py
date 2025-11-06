@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class TimeTable:
+class TimeTable: # Класс расписаний
     def __init__(self, uid, mon1, tue1, wed1, thu1, fri1, sat1, mon2, tue2, wed2, thu2, fri2, sat2, name):
         self.id = uid
         self.name = name
@@ -18,7 +18,7 @@ class TimeTable:
         self.fri2 = fri2
         self.sat2 = sat2
 
-    def get(self, n):
+    def get(self, n): # Получение расписания как списка по чет/нечет неделям
         self.w1 = [self.mon1, self.tue1, self.wed1, self.thu1, self.fri1, self.sat1]
         self.w2 = [self.mon2, self.tue2, self.wed2, self.thu2, self.fri2, self.sat2]
         if n == 1:
@@ -26,7 +26,7 @@ class TimeTable:
         else:
             return self.w2
 
-    def write(self, part, inf):
+    def write(self, part, inf): # Многа букав для отдельного изменения дней недели
         con = sqlite3.connect('C:/Users/Arseniy/PycharmProjects/sem1/scr/main/resourses/db')
         cur = con.cursor()
         match part:
@@ -59,7 +59,7 @@ class TimeTable:
         con.commit()
         con.close()
 
-    def find_groups(self):
+    def find_groups(self): # Тот самый поиск из мейна
         con = sqlite3.connect('C:/Users/Arseniy/PycharmProjects/sem1/scr/main/resourses/db')
         cur = con.cursor()
 

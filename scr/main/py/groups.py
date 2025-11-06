@@ -4,7 +4,7 @@ from init import users, ttables
 import sqlite3
 
 
-class Group:
+class Group: # Класс групп
     def __init__(self, uid, comp, tt, teacher):
         self.id = uid
         self.comp = comp

@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class User:
+class User: # Класс пользователей
     def __init__(self, uid, name, att, role):
         self.id = uid
         self.name = name
@@ -21,7 +21,7 @@ class User:
         con.commit()
         con.close()
 
-    def find_groups(self):
+    def find_groups(self): # Тот самый поиск из мейна
         con = sqlite3.connect('C:/Users/Arseniy/PycharmProjects/sem1/scr/main/resourses/db')
         cur = con.cursor()
 
@@ -36,14 +36,13 @@ class User:
             for i in groups:
                 if i[3] == self.id:
                     self.groups.append(str(i[0]))
-            print('Отвечает за группы с номерами:', ' '.join(self.groups))
+            print(f'{self.name} отвечает за группы с номерами:', ' '.join(self.groups))
         elif self.role == 'st':
             self.groups = 0
             for i in groups:
-                if str(self.id) in str(i[1]):
+                if str(self.name) in str(i[1]):
                     self.groups = i[0]
             if self.groups == 0:
-                print('Студент не состоит в группе')
+                print(f'Студент {self.name} не состоит в группе')
             else:
-                print('Студент состоит в группе номер', self.groups)
-
+                print(f'Студент {self.name} состоит в группе номер', self.groups)

@@ -1,1 +1,1 @@
-print('x')
+print(True - 1)
