@@ -1,6 +1,4 @@
 import sqlite3
-from unittest import case
-
 from groups import Group
 from init import *
 from error import Error, errors
@@ -27,23 +25,40 @@ curr_user = open('../resourses/akk.txt', 'r').read()
 while True:
     if curr_user == '':
         curr_user = input('Войдите в аккаунт: ')
-        print(user_names)
         if curr_user in user_names:
             open('../resourses/akk.txt', 'w').write(curr_user)
         else:
             curr_user = ''
     if find_name(users, curr_user).role == 'st':
         print(f'Ваш аккаунт - студенческий аккаунт {curr_user}')
-        action = input('Возможные действия: Просмотр посещаемости, просмотр состава группы, просмотр ответственного преподавателя, просмотр расписания')
+        action = input('Возможные действия: Просмотр посещаемости, просмотр состава группы, просмотр ответственного преподавателя, просмотр расписания, выход из аккаунта ')
         match action.lower():
             case 'просмотр посещаемости':
-                pass
+                print(f'Ваша посещаемость: {find_name(users, curr_user).att}')
             case 'просмотр состава группы':
                 pass
             case 'просмотр ответственного преподавателя':
                 pass
             case 'просмотр расписания':
                 pass
-    if find_name(users, curr_user).role == 'te':
+            case 'выход из аккаунта':
+                open('../resourses/akk.txt', 'w').write('')
+                curr_user = ''
+    elif find_name(users, curr_user).role == 'te':
         print(f'Ваш аккаунт - преподавательский аккаунт {curr_user}')
-        action = input('Возможные действия: ')
+        action = input('Возможные действия: Просмотр информации о студентах, просмотр групп, изменение посещаемости студентов, выход из аккаунта ')
+        match action.lower():
+            case 'просмотр информации о студентах':
+                pass
+            case 'просмотр групп':
+                pass
+            case 'изменение посещаемости студентов':
+                st = input('Введите имя студента: ')
+                subj = input('Введите название предмета, на котором хотите отметить присутствие студента: ')
+                if st in user_names:
+                    find_name(users, st).write_att(subj)
+                else:
+                    print('Студент не найден')
+            case 'выход из аккаунта':
+                open('../resourses/akk.txt', 'w').write('')
+                curr_user = ''

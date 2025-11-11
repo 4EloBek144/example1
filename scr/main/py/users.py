@@ -14,8 +14,6 @@ class User: # Класс пользователей
         match part:
             case 'name':
                 cur.execute(f"UPDATE users SET name = '{inf}' WHERE id = {self.id}")
-            case 'att':
-                cur.execute(f"UPDATE users SET att = '{inf}' WHERE id = {self.id}")
             case 'role':
                 cur.execute(f"UPDATE users SET role = '{inf}' WHERE id = {self.id}")
         con.commit()
@@ -46,3 +44,22 @@ class User: # Класс пользователей
                 print(f'Студент {self.name} не состоит в группе')
             else:
                 print(f'Студент {self.name} состоит в группе номер', self.groups)
+
+    def get_att(self, subject):
+        pass
+
+    def write_att(self, subject):
+        con = sqlite3.connect('../resourses/db')
+        cur = con.cursor()
+        subjs = {'гит': 0, 'математика': 1, 'информатика': 2, 'программирование': 3, 'английский': 4, 'русский': 5, 'дискретная математика': 6, 'орг': 7, 'история': 8, 'физика': 9}
+        try:
+            subjs[subject]
+        except Exception:
+            print(f'Данный студент не имеет предмета {subject} в своем расписании.')
+        else:
+            att = self.att.split()
+            att[subjs[subject]] = '-'.join([att[subjs[subject]].split('-')[0], str(int(att[subjs[subject]].split('-')[1]) + 1)])
+            print(att)
+            self.att = ' '.join(att)
+            cur.execute(f"UPDATE users SET att = '{self.att}' WHERE id = {self.id}")
+            con.commit()
