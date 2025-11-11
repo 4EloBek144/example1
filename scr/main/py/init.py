@@ -4,12 +4,14 @@ from users import User
 from timetables import TimeTable
 
 
-conn = sqlite3.connect('C:/Users/Arseniy/PycharmProjects/sem1/scr/main/resourses/db')
+conn = sqlite3.connect('../resourses/db')
 cursor = conn.cursor()
 
 users = []
+user_names = []
 cursor.execute("SELECT * FROM users")
 for i in cursor.fetchall():
+    user_names.append(i[1])
     users.append(User(i[0], i[1], i[2], i[3]))
 
 ttables = []

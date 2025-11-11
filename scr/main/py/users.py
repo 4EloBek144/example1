@@ -9,7 +9,7 @@ class User: # Класс пользователей
         self.role = role
 
     def write(self, part, inf):
-        con = sqlite3.connect('C:/Users/Arseniy/PycharmProjects/sem1/scr/main/resourses/db')
+        con = sqlite3.connect('../resourses/db')
         cur = con.cursor()
         match part:
             case 'name':
@@ -21,8 +21,8 @@ class User: # Класс пользователей
         con.commit()
         con.close()
 
-    def find_groups(self): # Тот самый поиск из мейна
-        con = sqlite3.connect('C:/Users/Arseniy/PycharmProjects/sem1/scr/main/resourses/db')
+    def find_groups(self):
+        con = sqlite3.connect('../resourses/db')
         cur = con.cursor()
 
         groups = []

@@ -27,7 +27,7 @@ class TimeTable: # Класс расписаний
             return self.w2
 
     def write(self, part, inf): # Многа букав для отдельного изменения дней недели
-        con = sqlite3.connect('C:/Users/Arseniy/PycharmProjects/sem1/scr/main/resourses/db')
+        con = sqlite3.connect('../resourses/db')
         cur = con.cursor()
         match part:
             case 'mon1':
@@ -59,8 +59,8 @@ class TimeTable: # Класс расписаний
         con.commit()
         con.close()
 
-    def find_groups(self): # Тот самый поиск из мейна
-        con = sqlite3.connect('C:/Users/Arseniy/PycharmProjects/sem1/scr/main/resourses/db')
+    def find_groups(self):
+        con = sqlite3.connect('../resourses/db')
         cur = con.cursor()
 
         groups = []

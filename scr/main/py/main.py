@@ -1,5 +1,6 @@
 import sqlite3
-from PyQt5 import *
+from unittest import case
+
 from groups import Group
 from init import *
 from error import Error, errors
@@ -21,14 +22,28 @@ groups = []
 cursor.execute("SELECT * FROM groups")
 for i in cursor.fetchall():
     groups.append(Group(i[0], i[1], i[2], i[3]))
-for i in groups[0].tt.get(1): # Получение расписания группы
-    print(str(i).replace('-', '\t'))
+curr_user = open('../resourses/akk.txt', 'r').read()
 
-users[0].write('name', 'Биткин Арсений') # Изменение информации в базе данных
-groups[0].write('comp', 'Биткин Арсений')
-ttables[0].write('name', 'Расписание 25-ИВТ-4-1')
-
-find_name([1], 'Биткин Арсений').find_groups() # Нахождение групп по имени преподавателя или студента
-find_name(users, 'Какой-то препод').find_groups()
-find_name(ttables, 'расписание 25-ивт-4-1').find_groups() # Нахождение групп по названию расписания
-conn.close()
+while True:
+    if curr_user == '':
+        curr_user = input('Войдите в аккаунт: ')
+        print(user_names)
+        if curr_user in user_names:
+            open('../resourses/akk.txt', 'w').write(curr_user)
+        else:
+            curr_user = ''
+    if find_name(users, curr_user).role == 'st':
+        print(f'Ваш аккаунт - студенческий аккаунт {curr_user}')
+        action = input('Возможные действия: Просмотр посещаемости, просмотр состава группы, просмотр ответственного преподавателя, просмотр расписания')
+        match action.lower():
+            case 'просмотр посещаемости':
+                pass
+            case 'просмотр состава группы':
+                pass
+            case 'просмотр ответственного преподавателя':
+                pass
+            case 'просмотр расписания':
+                pass
+    if find_name(users, curr_user).role == 'te':
+        print(f'Ваш аккаунт - преподавательский аккаунт {curr_user}')
+        action = input('Возможные действия: ')
