@@ -77,3 +77,13 @@ class TimeTable: # Класс расписаний
             print(f'По расписанию "{self.name}" никто не обучается')
         else:
             print(f'По расписанию "{self.name}" обучаются группы с номерами:', ''.join(self.groups))
+
+    def tt_cont(self, n):
+        subjects = {}
+        for j in range(6):
+            for i in self.get(n)[j].split('|'):
+                if i in subjects:
+                    subjects[i] += 1
+                else:
+                    subjects[i] = 1
+        return subjects

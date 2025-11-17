@@ -24,3 +24,4 @@ class Group: # Класс групп
         con.commit()
         con.close()
 
+

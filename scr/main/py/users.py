@@ -34,16 +34,13 @@ class User: # Класс пользователей
             for i in groups:
                 if i[3] == self.id:
                     self.groups.append(str(i[0]))
-            print(f'{self.name} отвечает за группы с номерами:', ' '.join(self.groups))
+            return self.groups
         elif self.role == 'st':
             self.groups = 0
             for i in groups:
                 if str(self.name) in str(i[1]):
                     self.groups = i[0]
-            if self.groups == 0:
-                print(f'Студент {self.name} не состоит в группе')
-            else:
-                print(f'Студент {self.name} состоит в группе номер', self.groups)
+            return self.groups
 
     def get_att(self, subject):
         pass

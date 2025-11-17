@@ -16,6 +16,18 @@ def find_name(s, name): # Поиск пользователей и распис�
         return errors[0]
 
 
+def find_id(s, uid): # Поиск пользователей и расписаний по id
+    try:
+        for i in s:
+            if i.id == uid:
+                return i
+        print(f'В списке не найден {uid}')
+        return errors[0]
+    except Exception:
+        print(f'Объект не имеет параметра id', end=' - ')
+        return errors[0]
+
+
 groups = []
 cursor.execute("SELECT * FROM groups")
 for i in cursor.fetchall():
@@ -40,7 +52,14 @@ while True:
             case 'просмотр ответственного преподавателя':
                 pass
             case 'просмотр расписания':
-                pass
+                o = input('чет или нечет неделя? ')
+                if o.lower() == 'чет':
+                    print(find_id(ttables, find_name(users, curr_user).find_groups()).get(2))
+                elif o.lower() == 'нечет':
+                    print(find_id(ttables, find_name(users, curr_user).find_groups()).get(1))
+                else:
+                    print('Команда не распознана')
+                # print(find_id(ttables, find_name(users, curr_user).find_groups()).tt_cont(1))
             case 'выход из аккаунта':
                 open('../resourses/akk.txt', 'w').write('')
                 curr_user = ''
@@ -59,6 +78,36 @@ while True:
                     find_name(users, st).write_att(subj)
                 else:
                     print('Студент не найден')
+            case 'выход из аккаунта':
+                open('../resourses/akk.txt', 'w').write('')
+                curr_user = ''
+    elif find_name(users, curr_user).role == 'adm':
+        print(f'Ваш аккаунт - администраторский аккаунт {curr_user}')
+        action = input('Возможные действия: Просмотр информации о студентах, просмотр/редактирование групп, выставление/редактирование расписаний, назначение преподавателей, создание профилей, выход из аккаунта ')
+        match action.lower():
+            case 'просмотр информации о студентах':
+                pass
+            case 'просмотр групп':
+                pass
+            case 'редактирование групп':
+                pass
+            case 'выставление расписаний':
+                tid = input('Введите номер группы, для которой хотите назначить расписание ')
+                if find_id(groups, tid).name == 'Ошибка':
+                    print('Группа не найдена')
+                else:
+                    group = find_id(groups, tid)
+                    tname = input('Введите название расписания ')
+                    if find_name(ttables, tname).name == 'Ошибка':
+                        print('Расписание не найдено')
+                    else:
+                        group.write('timetable', find_name(ttables, tname))
+            case 'редактирование расписаний':
+                pass
+            case 'назначение преподавателей':
+                pass
+            case 'создание профилей':
+                pass
             case 'выход из аккаунта':
                 open('../resourses/akk.txt', 'w').write('')
                 curr_user = ''
