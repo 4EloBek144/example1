@@ -29,33 +29,7 @@ class TimeTable: # Класс расписаний
     def write(self, part, inf): # Многа букав для отдельного изменения дней недели
         con = sqlite3.connect('../resourses/db')
         cur = con.cursor()
-        match part:
-            case 'mon1':
-                cur.execute(f"UPDATE timetable SET mon1 = '{inf}' WHERE id = {self.id}")
-            case 'tue1':
-                cur.execute(f"UPDATE timetable SET tue1 = '{inf}' WHERE id = {self.id}")
-            case 'wed1':
-                cur.execute(f"UPDATE timetable SET wed1 = '{inf}' WHERE id = {self.id}")
-            case 'thu1':
-                cur.execute(f"UPDATE timetable SET thu1 = '{inf}' WHERE id = {self.id}")
-            case 'fri1':
-                cur.execute(f"UPDATE timetable SET fri1 = '{inf}' WHERE id = {self.id}")
-            case 'sat1':
-                cur.execute(f"UPDATE timetable SET sat1 = '{inf}' WHERE id = {self.id}")
-            case 'mon2':
-                cur.execute(f"UPDATE timetable SET mon2 = '{inf}' WHERE id = {self.id}")
-            case 'tue2':
-                cur.execute(f"UPDATE timetable SET tue2 = '{inf}' WHERE id = {self.id}")
-            case 'wed2':
-                cur.execute(f"UPDATE timetable SET wed2 = '{inf}' WHERE id = {self.id}")
-            case 'thu2':
-                cur.execute(f"UPDATE timetable SET thu2 = '{inf}' WHERE id = {self.id}")
-            case 'fri2':
-                cur.execute(f"UPDATE timetable SET fri2 = '{inf}' WHERE id = {self.id}")
-            case 'sat2':
-                cur.execute(f"UPDATE timetable SET sat2 = '{inf}' WHERE id = {self.id}")
-            case 'name':
-                cur.execute(f"UPDATE timetable SET name = '{inf}' WHERE id = {self.id}")
+        cur.execute(f"UPDATE timetable SET {part} = '{inf}' WHERE id = {self.id}")
         con.commit()
         con.close()
 
