@@ -9,14 +9,14 @@ class User: # Класс пользователей
         self.role = role
         self.rtt = None
         if self.role == 'st' and self.find_groups() != -1:
-            con = sqlite3.connect('../resourses/db')
+            con = sqlite3.connect('../resources/db')
             cur = con.cursor()
             self.gr = cur.execute(f"SELECT * FROM groups WHERE id = {self.find_groups()}").fetchall()
             self.tt_init()
             con.close()
 
     def tt_init(self, group = None):
-        con = sqlite3.connect('../resourses/db')
+        con = sqlite3.connect('../resources/db')
         cur = con.cursor()
         if self.rtt is None and group is not None:
             self.gr = cur.execute(f"SELECT * FROM groups WHERE id = {group}").fetchall()
@@ -43,7 +43,7 @@ class User: # Класс пользователей
 
     def tt_create(self, group = None, ex = None):
         vol = self.tt_init(group)
-        con = sqlite3.connect('../resourses/db')
+        con = sqlite3.connect('../resources/db')
         cur = con.cursor()
         if ex is None:
             att = ' '.join([f'{x}-0-{vol[x]}' for x in self.subj])
@@ -58,7 +58,7 @@ class User: # Класс пользователей
         con.close()
 
     def write(self, part, inf):
-        con = sqlite3.connect('../resourses/db')
+        con = sqlite3.connect('../resources/db')
         cur = con.cursor()
         match part:
             case 'name':
@@ -69,7 +69,7 @@ class User: # Класс пользователей
         con.close()
 
     def find_groups(self):
-        con = sqlite3.connect('../resourses/db')
+        con = sqlite3.connect('../resources/db')
         cur = con.cursor()
         gr = cur.execute(f"SELECT * FROM groups").fetchall()
         if self.role == 'te':
@@ -86,6 +86,7 @@ class User: # Класс пользователей
                     self.groups = i[0]
             con.close()
             return self.groups
+        return None
 
     def get_att(self, subject):
         subjs = {'гит': 'ГИТ', 'математика': 'МАТ', 'информатика': 'ИНФ', 'программирование': 'ПРОГ', 'английский': 'АНГЛ', 'русский': 'РУС', 'дискретная математика': 'ДМАТ', 'орг': 'ОРГ', 'история': 'ИСТ', 'физика': 'ФИЗ'}
@@ -97,7 +98,7 @@ class User: # Класс пользователей
             return f'Вы посетили {self.att.split()[self.subj.index(subjs[subject])].split('-')[1]} занятий из {self.att.split()[self.subj.index(subjs[subject])].split('-')[2]} за этот семестр.'
 
     def write_att(self, subject):
-        con = sqlite3.connect('../resourses/db')
+        con = sqlite3.connect('../resources/db')
         cur = con.cursor()
         subjs = {'гит': 'ГИТ', 'математика': 'МАТ', 'информатика': 'ИНФ', 'программирование': 'ПРОГ', 'английский': 'АНГЛ', 'русский': 'РУС', 'дискретная математика': 'ДМАТ', 'орг': 'ОРГ', 'история': 'ИСТ', 'физика': 'ФИЗ'}
         try:

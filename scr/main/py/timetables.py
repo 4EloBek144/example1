@@ -27,14 +27,14 @@ class TimeTable: # Класс расписаний
             return self.w2
 
     def write(self, part, inf): # Многа букав для отдельного изменения дней недели
-        con = sqlite3.connect('../resourses/db')
+        con = sqlite3.connect('../resources/db')
         cur = con.cursor()
         cur.execute(f"UPDATE timetable SET {part} = '{inf}' WHERE id = {self.id}")
         con.commit()
         con.close()
 
     def find_groups(self):
-        con = sqlite3.connect('../resourses/db')
+        con = sqlite3.connect('../resources/db')
         cur = con.cursor()
 
         groups = []

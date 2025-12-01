@@ -7,7 +7,7 @@ import os
 
 
 def get_users(fl_type):
-    con = sqlite3.connect('../resourses/db')
+    con = sqlite3.connect('../resources/db')
     cur = con.cursor()
     cur.execute("SELECT * FROM users")
 
@@ -42,7 +42,7 @@ def get_users(fl_type):
 
 
 def get_timetables(fl_type):
-    con = sqlite3.connect('../resourses/db')
+    con = sqlite3.connect('../resources/db')
     cur = con.cursor()
     cur.execute("SELECT * FROM timetable")
 
@@ -85,7 +85,7 @@ def get_timetables(fl_type):
 
 
 def get_groups(fl_type):
-    con = sqlite3.connect('../resourses/db')
+    con = sqlite3.connect('../resources/db')
     curg = con.cursor()
     curu = con.cursor()
     curt = con.cursor()
@@ -131,7 +131,9 @@ def files(tab):
         os.mkdir('../../../out')
     except FileExistsError:
         pass
-
+    if tab not in ['пользователи', 'расписания', 'группы']:
+        print('Неверный ввод')
+        return
     match tab:
         case 'пользователи':
             with open('../../../out/users.json', 'w', encoding='UTF-8') as f:
@@ -162,8 +164,3 @@ def files(tab):
             get_timetables('xml').write('../../../out/timetables.xml', encoding='UTF-8')
             with open('../../../out/timetables.yaml', 'w', encoding='UTF-8') as f:
                 yaml.dump(get_timetables('yaml'), f)
-
-
-files('группы')
-files('расписания')
-files('пользователи')

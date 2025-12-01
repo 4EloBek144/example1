@@ -2,6 +2,7 @@ import sqlite3
 from groups import Group
 from init import *
 from error import Error, errors
+from files import files
 
 
 def find_name(s, name): # Поиск пользователей и расписаний по имени/названию
@@ -60,13 +61,13 @@ groups = []
 cursor.execute("SELECT * FROM groups")
 for i in cursor.fetchall():
     groups.append(Group(i[0], i[1], i[2], i[3]))
-curr_user = open('../resourses/akk.txt', 'r').read()
+curr_user = open('../resources/akk.txt', 'r').read()
 
 while True:
     if curr_user == '':
         curr_user = input('Войдите в аккаунт: ')
         if curr_user in user_names:
-            open('../resourses/akk.txt', 'w').write(curr_user)
+            open('../resources/akk.txt', 'w').write(curr_user)
         else:
             curr_user = ''
 
@@ -102,7 +103,7 @@ while True:
                 else:
                     print('Вы не состоите в группе')
             case 'выход из аккаунта':
-                open('../resourses/akk.txt', 'w').write('')
+                open('../resources/akk.txt', 'w').write('')
                 curr_user = ''
 
     elif curr_user != '' and find_name(users, curr_user).role == 'te':
@@ -121,12 +122,12 @@ while True:
                 else:
                     print('Студент не найден или не обучается в группе')
             case 'выход из аккаунта':
-                open('../resourses/akk.txt', 'w').write('')
+                open('../resources/akk.txt', 'w').write('')
                 curr_user = ''
 
     elif curr_user != '' and find_name(users, curr_user).role == 'adm':
         print(f'Ваш аккаунт - администраторский аккаунт {curr_user}')
-        action = input('Возможные действия: Просмотр информации о студентах, просмотр/редактирование/создание групп, редактирование/создание расписаний, назначение преподавателей, создание профилей, выход из аккаунта ')
+        action = input('Возможные действия: Просмотр информации о студентах, просмотр/редактирование/создание групп, редактирование/создание расписаний, назначение преподавателей, создание профилей, вывод файлов, выход из аккаунта ')
         match action.lower():
             case 'просмотр информации о студентах':
                 st_r()
@@ -301,6 +302,8 @@ while True:
                     users.append(User(len(users) + 1, nm, None, rls[rl]))
                     user_names.append(nm)
                     print('Аккаунт создан')
+            case 'вывод файлов':
+                files(input('Введите таблицу, на основе которой будут сформированы файлы (расписания, пользователи, группы): '))
             case 'выход из аккаунта':
-                open('../resourses/akk.txt', 'w').write('')
+                open('../resources/akk.txt', 'w').write('')
                 curr_user = ''

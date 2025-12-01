@@ -4,7 +4,7 @@ from users import User
 from timetables import TimeTable
 
 
-conn = sqlite3.connect('../resourses/db')
+conn = sqlite3.connect('../resources/db')
 cursor = conn.cursor()
 
 users = []

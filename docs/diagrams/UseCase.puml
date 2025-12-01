@@ -5,7 +5,6 @@ skinparam packageStyle rectangle
 actor "Студент" as Student
 actor "Преподаватель" as Teacher
 actor "Администратор" as Adm
-actor "Ректор" as Rec
 
 package "Вход" as Registration{
     usecase "Вход в систему" as UC_Login
@@ -15,7 +14,6 @@ package "Вход" as Registration{
 Student --> Registration
 Teacher --> Registration
 Adm --> Registration
-Rec --> Registration
 
 package "Расписания" as TimeT {
     usecase "Просмотр расписания" as TimeT_R
@@ -25,7 +23,7 @@ package "Расписания" as TimeT {
 Student --> TimeT_R
 Teacher --> TimeT_R
 Adm --> TimeT
-Rec --> TimeT
+
 
 package "Группы" as Groups{
     usecase "Просмотр групп и их состава" as Groups_R
@@ -35,7 +33,6 @@ package "Группы" as Groups{
 Student --> Groups_R
 Teacher --> Groups_R
 Adm --> Groups
-Rec --> Groups
 
 package "Посещаемость" as Att{
     usecase "Просмотр" as Att_R
@@ -46,7 +43,6 @@ package "Посещаемость" as Att{
 Student --> Att_R
 Teacher --> Att
 Adm --> Att_R
-Rec --> Att_R
 
 package "Профили" as Prof{
     usecase "Просмотр" as Prof_R
@@ -56,7 +52,7 @@ package "Профили" as Prof{
 Student --> Prof_R
 Teacher --> Prof_R
 Adm --> Prof
-Rec --> Prof
+
 
 TimeT --> (Registration) #line.dashed;text:black : <include>
 Groups --> (Registration) #line.dashed;text:black : <include>

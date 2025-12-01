@@ -12,7 +12,7 @@ class Group: # Класс групп
         self.teacher = users[teacher - 1]
 
     def write(self, part, inf):
-        con = sqlite3.connect('../resourses/db')
+        con = sqlite3.connect('../resources/db')
         cur = con.cursor()
         match part:
             case 'comp':
